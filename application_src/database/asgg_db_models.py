@@ -13,7 +13,7 @@ class asgg_app_database_models_authentication(db.Model):
   social_links_facebook= db.Column(db.Text,nullable=False)
   social_links_mixlr= db.Column(db.Text,nullable=False)
   social_links_buzzsprout= db.Column(db.Text,nullable=False)
-  user_avater=db.Column(db.Text(), default="http://127.0.0.1:4700/static/images/user-avater.png", nullable=False)
+  user_avater=db.Column(db.Text(), default="https://yt3.googleusercontent.com/y5-YHLhCNGTaUFZMa_y-QSGey-w1xjYxuRXcPkq7CCI-X0L7pxwp-IT8YvjB3smejJU3k5azTw=s160-c-k-c0x00ffffff-no-rj", nullable=False)
   joined=db.Column(db.DateTime(timezone=True), default=db.func.now(),nullable=False)
   def dt(self):
     return {"name":self.name,"userid":self.userid,"user_avater":self.user_avater,"email":self.email,"password":self.passw,"date_joined":self.joined,"social_links_youtube":self.social_links_youtube,"social_links_rss":self.social_links_rss,"social_links_facebook":self.social_links_facebook,"social_links_mixlr":self.social_links_mixlr,"social_links_buzzsprout":self.social_links_buzzsprout}
@@ -31,7 +31,7 @@ class asgg_app_database_models_dashboard_data__dataRecordings(db.Model):
   information= db.Column(db.String(),nullable=False)
   upload_status= db.Column(db.String(),nullable=False, default="Online")
   recorded=db.Column(db.DateTime(), default=db.func.now(), nullable=False)
-  recording_cover_img=db.Column(db.Text(), default="http://127.0.0.1:4700/static/recordings-images/'Arise_Shine.png", nullable=False)
+  recording_cover_img=db.Column(db.Text(), default="https://yt3.googleusercontent.com/y5-YHLhCNGTaUFZMa_y-QSGey-w1xjYxuRXcPkq7CCI-X0L7pxwp-IT8YvjB3smejJU3k5azTw=s160-c-k-c0x00ffffff-no-rj", nullable=False)
   recording_uploaded_to_website=db.Column(db.JSON(), default=[])
 
   def dt(self):

@@ -35,10 +35,11 @@ def asgg_app_server():
 
     db.init_app(application)
 
-    os.makedirs(application.config["UPLOAD_FOLDER"], exist_ok=True)    
-    os.makedirs(application.config["UPLOAD_FOLDER"], exist_ok=True)    
+    #os.makedirs(application.config["UPLOAD_FOLDER"], exist_ok=True)    
+    #os.makedirs(application.config["UPLOAD_FOLDER"], exist_ok=True)    
 
     print( os.environ.get("SQLALCHEMY_DATATBASE_URIENV") )
+    print(application.config["UPLOAD_FOLDER"])
     from .authentication import asgg_app_authentication_routes
     from .dashboard import asgg_app_dashboard_routes
     from .database import asgg_app_database_models_authentication, asgg_app_database_models_dashboard_data__dataRecordings

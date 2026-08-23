@@ -57,13 +57,13 @@ def asgg_signup():
             filename = secure_filename(user_avater.filename)
             new_filename = f"_{filename}"
             print(new_filename)
-            new_path = f"http://127.0.0.1:4700/static/images/{new_filename}"
+            #new_path = f"http://127.0.0.1:4700/static/images/{new_filename}"
 
-            save_path = os.path.join(current_app.config["AVATER_UPLOAD_FOLDER" ], new_filename)
-            print(save_path)
-            user_avater.save(save_path)
+            #save_path = os.path.join(current_app.config["AVATER_UPLOAD_FOLDER" ], new_filename)
+            #print(save_path)
+            #user_avater.save(save_path)
             print("uploading image avater...")
-            authenticated_user = asgg_app_database_models_authentication(name=user_name,email=user_email,passw=user_passw,user_avater=new_path,social_links_youtube=social_links_youtube,social_links_rss=social_links_rss,social_links_facebook=social_links_facebook,social_links_mixlr=social_links_mixlr,social_links_buzzsprout=social_links_buzzsprout)
+            authenticated_user = asgg_app_database_models_authentication(name=user_name,email=user_email,passw=user_passw,user_avater="https://yt3.googleusercontent.com/y5-YHLhCNGTaUFZMa_y-QSGey-w1xjYxuRXcPkq7CCI-X0L7pxwp-IT8YvjB3smejJU3k5azTw=s160-c-k-c0x00ffffff-no-rj",social_links_youtube=social_links_youtube,social_links_rss=social_links_rss,social_links_facebook=social_links_facebook,social_links_mixlr=social_links_mixlr,social_links_buzzsprout=social_links_buzzsprout)
         try:
             db.session.add(authenticated_user)
             db.session.commit()

@@ -113,14 +113,14 @@ def asgg_recordings():
         print(new_filename)
         new_path = f"http://127.0.0.1:4700/static/recordings-images/{new_filename}"
 
-        save_path = os.path.join(current_app.config["UPLOAD_FOLDER" ], new_filename)
-        print(save_path)
-        recording_cover_img.save(save_path)
+        #save_path = os.path.join(current_app.config["UPLOAD_FOLDER" ], new_filename)
+       # print(save_path)
+        #recording_cover_img.save(save_path)
         print(recording_title)
         #print(recording_recorder)
         print(podcast_websites)
         #,recorded=recording_date view
-        new_recording_podcast = asgg_app_database_models_dashboard_data__dataRecordings(title=recording_title,information=recording_information,recording_uploaded_to_website=podcast_websites,upload_status=recording_upload_status,recording_cover_img=new_path,upload_link_youtube=upload_links_youtube,upload_link_rss=upload_links_rss,upload_link_buzzsprout=upload_links_buzzsprout,upload_link_facebook=upload_links_facebook,upload_link_mixlr=upload_links_mixlr)
+        new_recording_podcast = asgg_app_database_models_dashboard_data__dataRecordings(title=recording_title,information=recording_information,recording_uploaded_to_website=podcast_websites,upload_status=recording_upload_status,recording_cover_img="https://yt3.googleusercontent.com/y5-YHLhCNGTaUFZMa_y-QSGey-w1xjYxuRXcPkq7CCI-X0L7pxwp-IT8YvjB3smejJU3k5azTw=s160-c-k-c0x00ffffff-no-rj",upload_link_youtube=upload_links_youtube,upload_link_rss=upload_links_rss,upload_link_buzzsprout=upload_links_buzzsprout,upload_link_facebook=upload_links_facebook,upload_link_mixlr=upload_links_mixlr)
         try:
             db.session.add(new_recording_podcast)
             db.session.commit()
