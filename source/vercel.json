@@ -1,0 +1,14 @@
+{
+    "version": 2,
+    "builds": {
+        "source": "index.py",
+        "function":"@vercel/python"
+    },
+    "routes": [
+        {
+            "source": "/(.*)",
+            "destination": "index.py"
+        }
+    ]
+
+}
