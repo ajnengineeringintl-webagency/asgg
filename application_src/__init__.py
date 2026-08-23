@@ -22,9 +22,9 @@ def asgg_app_server():
     application.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     application.config["SECRET_KEY"] ="ASGGAPPSECRETKEY"
-
-    application.config["AVATER_UPLOAD_FOLDER" ] = os.path.join("app/static", "images")
-    application.config["UPLOAD_FOLDER"] = os.path.join("app/static", "recordings-images")
+    upload_root = "/temp/asgg-app" if os.environ.get("VERCEL") else os.path.join("application_src","static")
+    application.config["AVATER_UPLOAD_FOLDER" ] = os.path.join(upload_root, "images")
+    application.config["UPLOAD_FOLDER"] = os.path.join(upload_root, "recordings-images")
 
     application.config["MAX_UPLOAD_LENGTH"] = 5 * 1024 * 1024
 
@@ -35,7 +35,8 @@ def asgg_app_server():
 
     db.init_app(application)
 
-    os.makedirs(application.config["UPLOAD_FOLDER"] , exist_ok=True)    
+    os.makedirs(application.config["UPLOAD_FOLDER"], exist_ok=True)    
+    os.makedirs(application.config["UPLOAD_FOLDER"], exist_ok=True)    
 
     print( os.environ.get("SQLALCHEMY_DATATBASE_URIENV") )
     from .authentication import asgg_app_authentication_routes

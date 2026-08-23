@@ -1,4 +1,4 @@
-{
+{"app/static"
     "version": 2,
     "builds": {
         "source": "index.py",
