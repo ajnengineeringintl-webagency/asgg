@@ -1,4 +1,4 @@
-from app import db
+from application_src import db
 from flask_sqlalchemy import SQLAlchemy
 
 class asgg_app_database_models_authentication(db.Model):

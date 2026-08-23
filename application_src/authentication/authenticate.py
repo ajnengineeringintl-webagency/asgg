@@ -1,7 +1,7 @@
-from app import db
+from application_src import db
 from flask_sqlalchemy import SQLAlchemy
 from flask import Blueprint, url_for, jsonify,render_template, session, redirect, request, flash, current_app
-from app.database import asgg_app_database_models_authentication
+from application_src.database import asgg_app_database_models_authentication
 
 import os
 from werkzeug.utils import secure_filename

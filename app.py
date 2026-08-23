@@ -1,4 +1,4 @@
-from app import asgg_app_server
+from application_src import asgg_app_server
 import os
 
 #'''PRIASE THE LORD'''
