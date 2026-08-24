@@ -1,10 +1,11 @@
-from application_src import db
+from application_src import db, image_uploader_api, uploadurl
 from flask_sqlalchemy import SQLAlchemy
 from flask import Blueprint, url_for, jsonify,render_template, session, redirect, request, flash, current_app
 from application_src.database import asgg_app_database_models_authentication
 
 import os
 from werkzeug.utils import secure_filename
+import requests
 asgg_app_authentication_routes = Blueprint("asgg_app_authentication_routes", __name__, template_folder="templates", static_folder="static")
 @asgg_app_authentication_routes.route("/signin", methods=["GET","POST"])
 def asgg_signin():
@@ -51,6 +52,14 @@ def asgg_signup():
             authenticated_user = asgg_app_database_models_authentication(name=user_name,email=user_email,passw=user_passw,social_links_youtube=social_links_youtube,social_links_rss=social_links_rss,social_links_facebook=social_links_facebook,social_links_mixlr=social_links_mixlr,social_links_buzzsprout=social_links_buzzsprout)
         else:
             print(user_name)
+            print(user_avater)
+            pylo = {"key": image_uploader_api}
+            data = {"image": (user_avater.filename,user_avater.stream,user_avater.content_type)}
+            response = requests.post(uploadurl,params=pylo,files=data)
+            resdata = response.json()
+            print(resdata)
+            li = resdata['data']['url']
+            print(li)
             print(user_email)
             print(user_passw)
             
@@ -63,7 +72,7 @@ def asgg_signup():
             #print(save_path)
             #user_avater.save(save_path)
             print("uploading image avater...")
-            authenticated_user = asgg_app_database_models_authentication(name=user_name,email=user_email,passw=user_passw,user_avater="https://yt3.googleusercontent.com/y5-YHLhCNGTaUFZMa_y-QSGey-w1xjYxuRXcPkq7CCI-X0L7pxwp-IT8YvjB3smejJU3k5azTw=s160-c-k-c0x00ffffff-no-rj",social_links_youtube=social_links_youtube,social_links_rss=social_links_rss,social_links_facebook=social_links_facebook,social_links_mixlr=social_links_mixlr,social_links_buzzsprout=social_links_buzzsprout)
+            authenticated_user = asgg_app_database_models_authentication(name=user_name,email=user_email,passw=user_passw,user_avater=li,social_links_youtube=social_links_youtube,social_links_rss=social_links_rss,social_links_facebook=social_links_facebook,social_links_mixlr=social_links_mixlr,social_links_buzzsprout=social_links_buzzsprout)
         try:
             db.session.add(authenticated_user)
             db.session.commit()

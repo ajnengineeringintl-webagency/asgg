@@ -1,4 +1,4 @@
-from application_src import db
+from application_src import db, image_uploader_api, uploadurl
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, Blueprint, url_for, flash, jsonify,render_template, session,redirect, request, current_app
 from application_src.database import asgg_app_database_models_authentication, asgg_app_database_models_dashboard_data__dataRecordings
@@ -7,6 +7,7 @@ import os
 import datetime
 from werkzeug.utils import secure_filename
 import math
+import requests
 asgg_app_dashboard_routes = Blueprint("asgg_app_dashboard_routes", __name__, template_folder="templates", static_folder="static")
 @asgg_app_dashboard_routes.route("/", methods=["GET","POST"])
 def asgg_dashboard():
@@ -110,7 +111,18 @@ def asgg_recordings():
         upload_links_buzzsprout = request.form['buzzsprout-link']
         filename = secure_filename(recording_cover_img.filename)
         new_filename = f"_{filename}"
-        print(new_filename)
+        print(recording_cover_img)
+        pylo = {"key": image_uploader_api} 
+        data = {"image": (recording_cover_img.filename,recording_cover_img.stream,recording_cover_img.content_type)}
+        response = requests.post(uploadurl,params=pylo,files=data)
+        resdata = response.json()
+        print(resdata)
+        li = resdata['data']['url']
+        print(li)
+        print("user data saved")
+        print("uploading")
+        
+        
         new_path = f"http://127.0.0.1:4700/static/recordings-images/{new_filename}"
 
         #save_path = os.path.join(current_app.config["UPLOAD_FOLDER" ], new_filename)
@@ -120,7 +132,7 @@ def asgg_recordings():
         #print(recording_recorder)
         print(podcast_websites)
         #,recorded=recording_date view
-        new_recording_podcast = asgg_app_database_models_dashboard_data__dataRecordings(title=recording_title,information=recording_information,recording_uploaded_to_website=podcast_websites,upload_status=recording_upload_status,recording_cover_img="https://yt3.googleusercontent.com/y5-YHLhCNGTaUFZMa_y-QSGey-w1xjYxuRXcPkq7CCI-X0L7pxwp-IT8YvjB3smejJU3k5azTw=s160-c-k-c0x00ffffff-no-rj",upload_link_youtube=upload_links_youtube,upload_link_rss=upload_links_rss,upload_link_buzzsprout=upload_links_buzzsprout,upload_link_facebook=upload_links_facebook,upload_link_mixlr=upload_links_mixlr)
+        new_recording_podcast = asgg_app_database_models_dashboard_data__dataRecordings(title=recording_title,information=recording_information,recording_uploaded_to_website=podcast_websites,upload_status=recording_upload_status,recording_cover_img=li,upload_link_youtube=upload_links_youtube,upload_link_rss=upload_links_rss,upload_link_buzzsprout=upload_links_buzzsprout,upload_link_facebook=upload_links_facebook,upload_link_mixlr=upload_links_mixlr)
         try:
             db.session.add(new_recording_podcast)
             db.session.commit()

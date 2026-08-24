@@ -7,6 +7,8 @@ from datetime import timedelta
 
 load_dotenv()
 db = SQLAlchemy()
+uploadurl =  "https://api.imgbb.com/1/upload"
+image_uploader_api = "e0fc7a184f9c73039fb040791a6bce69"
 
 def asgg_app_server(): 
     application = Flask(__name__)
